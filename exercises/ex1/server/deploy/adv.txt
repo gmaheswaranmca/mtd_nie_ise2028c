@@ -2,3 +2,7 @@ chmod +x script.sh
 ./script.sh
 
 tail -f app.log
+
+cd mtd_nie_ise2028c/exercises/ex1/server/
+python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+

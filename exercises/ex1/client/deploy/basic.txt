@@ -1,0 +1,12 @@
+sudo dnf update -y
+sudo dnf install git -y
+git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
+
+sudo dnf update -y
+sudo dnf install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl status httpd
+
+cd mtd_nie_ise2028c/exercises/ex1/client/
+sudo mv . var/www/html/
