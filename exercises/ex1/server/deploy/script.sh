@@ -6,7 +6,7 @@ set -e
 sudo dnf install python3 python3-pip -y
 
 # Go to the server directory
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 # Install dependencies
 python3 -m pip install --user fastapi uvicorn sqlalchemy
