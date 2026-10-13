@@ -1,0 +1,65 @@
+For your AWS Cloud Computing practical sessions, it is important to distinguish between these two situations:
+1. Standard AWS account — typically requires account registration, identity/contact verification, and a payment method. The root user has broad account privileges.
+2. Restricted or limited-access AWS account — certain services or actions may be unavailable until account verification, payment verification, or other onboarding requirements are completed.
+
+---
+
+Let us have our own virtual server on AWS. It is called EC2. 
+-> compute   + os           + network + storage 
+   t3.micro   Amazon Linux      vpc      8GB SSD  
+dependencies: security group + key pair 
+
+security group: virtual firewall to allow inbound/outbound traffics.
+    - ip addr and port to allow in to allow out 
+    - example:
+        if our vServer is backend app 
+            inbound: frontend app ip addr and port for backend allowed
+        to connect to db from our vServer 
+            outbound: db server ip addr and port for db 
+    - for our example:
+        our vServer: HTTP server 
+            - setup vServer [x]
+            - install http server       - to run installation cmd ssh  
+            - deploy the static site    - to run cp, file create cmd + scp
+            - access web site           - HTTP port has to be allowed in 
+
+            inbound: 
+                SSH 22 Anywhere-IP  (0.0.0.0/0)
+                HTTP 80 Anywhere-IP (0.0.0.0/0)
+
+key pair: key file generated using key pair resource 
+with which we will connect to vServer to run cmds using ssh 
+Given options: rsa, .pem to use openssh 
+
+Incomplete Step: to launch the ec2 + server1_sg + server1_key 
+
+--- 
+
+Lanch EC2: 
+    0. Number of instances: 1
+    1. name : server1
+    2. AMI : Amazon Linux [Free Tier]
+    3. instance type: t3.micro [Free Tier]
+    4. network: default vpc + server1_sg 
+    5. key pair: server1_key 
+    6. storage: 8GB ssd [Free Tier] + None 
+    <Launch>
+    --
+    Install http server using ssh 
+        sudo dnf update -y
+        sudo dnf install httpd -y
+        sudo systemctl start httpd
+        sudo systemctl enable httpd
+        sudo systemctl status httpd
+    Deploy or create your web site or web page 
+        /var/www/html
+        - index.html 
+            <h1>I am from NIE</h1>
+    open your public ip in the browser using "http" not https.
+
+pwd 
+whoami
+ls 
+ls /
+exit 
+
