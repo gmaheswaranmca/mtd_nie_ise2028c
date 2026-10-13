@@ -1,0 +1,12 @@
+server
+
+$ uvicorn main:app --reload
+
+open http://ipAddr:8000/docs in browser
+
+
+try emp creation
+try emp list
+
+client 
+

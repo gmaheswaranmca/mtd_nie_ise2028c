@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-light">
+
+<div id="root"></div>
+
+<script type="text/babel">
+const API = `${BASE_URL}/emps`;
+
+function App() {
+    const [emps, setEmps] = React.useState([]);
+    const [name, setName] = React.useState("");
+    const [sal, setSal] = React.useState("");
+    const [message, setMessage] = React.useState("");
+
+    async function loadEmps() {
+        try {
+            const response = await fetch(API);
+            if (!response.ok) throw new Error("Failed to load employees");
+            setEmps(await response.json());
+        } catch (error) {
+            setMessage("Cannot connect to FastAPI server.");
+        }
+    }
+
+    React.useEffect(() => {
+        loadEmps();
+    }, []);
+
+    async function addEmp(e) {
+        e.preventDefault();
+        setMessage("");
+
+        try {
+            const response = await fetch(API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    sal: Number(sal)
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Unable to add employee");
+            }
+
+            const emp = await response.json();
+            setEmps([...emps, emp]);
+            setName("");
+            setSal("");
+            setMessage("Employee added successfully!");
+        } catch (error) {
+            setMessage(error.message);
+        }
+    }
+
+    return (
+        <div className="container py-5">
+            <h2 className="mb-4">Employee Management</h2>
+
+            <form onSubmit={addEmp} className="card card-body mb-4">
+                <div className="mb-3">
+                    <label className="form-label">Employee Name</label>
+                    <input
+                        className="form-control"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Salary</label>
+                    <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        className="form-control"
+                        value={sal}
+                        onChange={e => setSal(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <button className="btn btn-primary">
+                    Add Employee
+                </button>
+
+                {message && (
+                    <p className="mt-3 mb-0">{message}</p>
+                )}
+            </form>
+
+            <h4>Employee List</h4>
+
+            <table className="table table-bordered table-striped bg-white">
+                <thead className="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {emps.map(emp => (
+                        <tr key={emp.id}>
+                            <td>{emp.id}</td>
+                            <td>{emp.name}</td>
+                            <td>{emp.sal}</td>
+                        </tr>
+                    ))}
+
+                    {emps.length === 0 && (
+                        <tr>
+                            <td colSpan="3" className="text-center">
+                                No employees found
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById("root"))
+    .render(<App />);
+</script>
+
+</body>
+</html>
