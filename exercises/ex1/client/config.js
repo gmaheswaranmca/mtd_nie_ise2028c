@@ -1,1 +1,1 @@
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "http://15.134.203.17:8000";

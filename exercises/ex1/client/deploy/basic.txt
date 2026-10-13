@@ -8,5 +8,5 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 sudo systemctl status httpd
 
-cd mtd_nie_ise2028c/exercises/ex1/client/
-sudo mv . var/www/html/
+cd mtd_nie_ise2028c/exercises/ex1/client
+sudo mv . /var/www/html
