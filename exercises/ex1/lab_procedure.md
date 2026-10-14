@@ -1,10 +1,10 @@
 # Full Stack Application – AWS EC2 Deployment
 
 ## 1. Backend Server — `app_server`
-
-**EC2:** `Amazon Linux` | **Type:** `t3.micro`  
-**Security Group:** `app_server_sg` → `22, 8000`  
-**Key:** `app_server_key.pem`
+ 
+- **Security Group:** `app_server_sg` → `22, 8000`  
+- **Key:** `app_server_key.pem`
+- **EC2:** `Amazon Linux` | **Type:** `t3.micro` 
 
 ### 1.A Update Linux + Git + Clone
 
@@ -54,9 +54,9 @@ Example:
 
 # 2. Frontend Server — `app_client`
 
-**EC2:** `Amazon Linux` | **Type:** `t3.micro`  
-**Security Group:** `app_client_sg` → `22, 80`  
-**Key:** `app_client_key.pem`
+- **Security Group:** `app_client_sg` → `22, 80`  
+- **Key:** `app_client_key.pem`
+- **EC2:** `Amazon Linux` | **Type:** `t3.micro` 
 
 ### 2.A Update Linux + Git + Clone
 
