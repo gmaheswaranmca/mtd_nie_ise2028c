@@ -9,9 +9,9 @@
 ### 1.A Update Linux + Git + Clone
 
 ```bash
-cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/server/scripts
-chmod +x ser1.sh
-./ser1.sh
+sudo dnf update -y
+sudo dnf install git -y
+git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
 ```
 
 ### 1.B Install Python + Dependencies + Start FastAPI
@@ -61,9 +61,9 @@ Example:
 ### 2.A Update Linux + Git + Clone
 
 ```bash
-cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client/deploy
-chmod +x cli1.sh
-./cli1.sh
+sudo dnf update -y
+sudo dnf install git -y
+git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
 ```
 
 ### 2.B Install Apache + Start + Enable
