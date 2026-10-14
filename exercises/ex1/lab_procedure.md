@@ -69,7 +69,7 @@ git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
 ### 2.B Install Apache + Start + Enable
 
 ```bash
-cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client/deploy
+cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client/scripts
 chmod +x cli2.sh
 ./cli2.sh
 ```
@@ -91,7 +91,7 @@ http://<FRONTEND_PUBLIC_IP>
 Replace `<BACKEND_PUBLIC_IP>` with the public IP of `app_server`.
 
 ```bash
-cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client/deploy
+cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client/scripts
 chmod +x cli3.sh
 ./cli3.sh http://<BACKEND_PUBLIC_IP>:8000
 ```
