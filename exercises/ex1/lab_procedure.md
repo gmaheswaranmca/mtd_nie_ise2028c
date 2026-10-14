@@ -145,3 +145,103 @@ employees.db
 - `BASE_URL` → **Backend EC2 public URL + :8000**
 - Do **not** use `localhost` between the two EC2 servers.
 - After testing, **stop/terminate EC2 resources** to avoid unnecessary AWS charges.
+
+## 4. Cleanup — Avoid AWS Charges
+
+### 4.A Check Resources
+
+In **AWS Console → EC2 → Instances**, verify:
+
+- [ ] `app_server`
+- [ ] `app_client`
+
+Check their **Instance State** and **Public IPv4 address**.
+
+---
+
+### 4.B Check Application
+
+Before deleting, confirm the experiment is complete:
+
+- [ ] Frontend application tested
+- [ ] Employee added successfully
+- [ ] Employee list displayed
+- [ ] Backend API tested
+- [ ] FastAPI `/docs` tested
+
+---
+
+### 4.C Terminate EC2 Instances
+
+Select:
+
+```text
+app_server
+app_client
+```
+
+Then:
+
+```text
+Instance state → Terminate instance
+```
+
+Confirm termination.
+
+> **Important:** Stop and terminate are different.  
+> **Terminate** permanently deletes the EC2 instance.
+
+---
+
+### 4.D Check Security Groups
+
+Go to:
+
+```text
+EC2 → Security Groups
+```
+
+Check:
+
+- [ ] `app_server_sg`
+- [ ] `app_client_sg`
+
+If they are no longer required, delete them.
+
+> A Security Group can be deleted only when it is not associated with any resource.
+
+---
+
+### 4.E Check Key Pairs
+
+Go to:
+
+```text
+EC2 → Key Pairs
+```
+
+Check:
+
+- [ ] `app_server_key`
+- [ ] `app_client_key`
+
+Delete them **only if they were created exclusively for this experiment and are no longer required**.
+
+> Deleting a key pair from AWS does not delete the `.pem` file already downloaded to your computer.
+
+---
+
+# Final Cleanup Verification
+
+```text
+[ ] app_server terminated
+[ ] app_client terminated
+[ ] Unused Security Groups removed
+[ ] Unused Key Pairs removed
+```
+
+## Final Rule
+
+**Create → Use → Check → Cleanup → Verify Cost**
+
+> Never finish an AWS lab without checking what resources are still running.
