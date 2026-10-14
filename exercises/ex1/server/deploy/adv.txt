@@ -1,8 +1,23 @@
-chmod +x script.sh
-./script.sh
+ssh connect to ex1_client ec2 
+1. Run Script file to deploy backend app
+COMMAND: cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/server/
+COMMAND: chmod +x script.sh
+COMMAND: ./script.sh
 
-tail -f app.log
+# to check that server is running 
+COMMAND: tail -f app.log
+# <-- if server running stop using 
+COMMAND: Ctrl+C
 
-cd mtd_nie_ise2028c/exercises/ex1/server/
-python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+2. if server is not running in background 
+COMMAND: cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/server/
+COMMAND: python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+
+3. To restart server, if server is running in background (if CORS FRONTEND_URL is changed)
+COMMAND: pkill -f uvicorn
+COMMAND: nohup python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &
+# to check that server is running 
+COMMAND: tail -f app.log
+# <-- if server running stop using 
+COMMAND: Ctrl+C
 

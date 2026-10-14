@@ -1,3 +1,4 @@
-sudo dnf update -y
-sudo dnf install git -y
-git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
+1. To update linux and install git and clone repo:
+COMMAND: sudo dnf update -y
+COMMAND: sudo dnf install git -y
+COMMAND: git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git

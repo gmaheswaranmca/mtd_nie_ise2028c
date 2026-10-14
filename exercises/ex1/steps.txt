@@ -1,7 +1,2 @@
-Steps for Backend App Deployment
-    1.
-    2. 
-
-Steps for Frontend App Deployment
-    1.
-    2. 
+1. app_server_sg [8000, 22] + app_server_key + app_server 
+2. app_client_sg [80, 22] + app_client_key + app_client 

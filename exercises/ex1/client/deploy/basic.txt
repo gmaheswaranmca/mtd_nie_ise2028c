@@ -1,12 +1,21 @@
-sudo dnf update -y
-sudo dnf install git -y
-git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
+1. To update linux and install git and clone repo:
+COMMAND: sudo dnf update -y
+COMMAND: sudo dnf install git -y
+COMMAND: git clone https://github.com/gmaheswaranmca/mtd_nie_ise2028c.git
 
-sudo dnf update -y
-sudo dnf install httpd -y
-sudo systemctl start httpd
-sudo systemctl enable httpd
-sudo systemctl status httpd
+2. To install apache web server and start+enable 
+COMMAND: sudo dnf install httpd -y
+COMMAND: sudo systemctl start httpd
+COMMAND: sudo systemctl enable httpd
+# To check server status
+COMMAND: sudo systemctl status httpd
+# <-- if server running stop using
+COMMAND: Ctrl+C 
 
-cd mtd_nie_ise2028c/exercises/ex1/client
-sudo mv . /var/www/html
+# To deploy frontapp files
+COMMAND: cd /home/ec2-user/mtd_nie_ise2028c/exercises/ex1/client
+COMMAND: sudo cp *.* /var/www/html
+
+3. To restart the server 
+COMMAND: sudo systemctl stop httpd
+COMMAND: sudo systemctl start httpd
