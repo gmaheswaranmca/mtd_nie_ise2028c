@@ -1,0 +1,261 @@
+S3  [Done]
+Amazon S3 = Serverless object storage + static website hosting.
+
+Lambda
+Lambda = Serverless compute where you run your backend code without managing a server.
+
+API Gateway
+API Gateway receives client API requests and dispatches/routes them to the appropriate backend service.
+
+SNS [Done]
+SNS = AWS's notification/messaging service that helps your cloud application publish a notification and deliver it to interested recipients or other applications.
+
+SQS [Done]
+AWS describes SQS as a managed queue for moving messages between distributed application components and for decoupling microservices. AWS Documentation
+
+IAM
+IAM = AWS service for managing identities (users, roles) and controlling their permissions to access AWS resources.
+
+Today Lab:
+1. Portfolio Site (Resume)
+- Deploy in S3 bucket
+    -> Learn S3 service 
+        -> bucket creation, file management, 
+           versioning, cleanup of bucket 
+        -> static web site hosting 
+            -> Amplify service to deploy the site 
+
+Create S3 bucket
+Search S3 -> S3 -> Create Bucket 
+    -> Dont change AWS Region
+    -> Bucket type: General purpose (Dont change)
+    -> Bucket namespace: Global namespace (Dont change)
+    -> Name: nie-ise-3-2028-pdc-fromtrainer 
+        It must be unique globally 
+    -> Object Ownership: ACLs disabled (recommended) (Dont change)
+    -> Block Public Access settings for this bucket
+        -> Block all public access 
+            -> Untick 
+            -> Tick : I acknowledge that the current settings might result in this bucket and the objects within becoming public
+    -> Versioning : Enable 
+    Give <Create Bucket> Command 
+
+    ! Successfully created bucket "nie-ise-3-2028-pdc-fromtrainer"
+
+    `Upload` the files
+        - Drag the web site files or folder to "drag and drop" area or use "Add Files" option or "Add Folder" option 
+        - Give <Upload> command 
+        - !Successfully uploaded 
+        - Give <Close> Command 
+
+    We can see the files uploaded in the bucket.
+
+    Select the file to be opened to view the content of the file.
+        - Give <Open> command to see the file content 
+        - After view, close the tab
+    
+- Maitain many versions of the file 
+    Mandatory: verisoning should be enabled for bucket 
+    Experiment: Do chnages in index.html <-- the file uploaded bef 
+    then come to bucket "Upload" option 
+        - Drag and Drop the new "index.html" file 
+        - Give Upload command 
+        new file is uploaded Successfully
+- Go to the bucket items list 
+    - Click the link ie name of the file "index.html" 
+        - Going inside the file and its management 
+            - go to versioning tab 
+                - We can see all the versions of our file 
+                    - select the top file and give open cmd 
+                        we can see the latest content 
+                    - click the old version file 
+                        - use open command 
+                            - we can the ole content 
+- Add photo to our home page 
+    - upload home page file and photo file to bucket 
+    - check files uploaded by opening the file 
+        - when we open the home page
+            the image is not displayed here 
+            there no absolute path for our image
+            we have only relative path for our image 
+        - this will be solved / fixed after hosted our content as web site 
+- Web site hosting 
+    - Be in the bucket home page 
+    - Go to properties tab 
+        -> Static website hosting section 
+            -> Give <Edit> cmd 
+                "Edit static website hosting" page we will get 
+                    -> Enable the "Static website hosting"
+                    -> Hosting type: Host a static website (By default)
+                    -> Index document: index.html 
+                    -> Give "Save Changes" cmd 
+                    ! Successfully edited static website hosting.
+-> Go again to "Static website hosting" section under "Properties" tab 
+    Give "View your existing Amplify apps" option 
+    "Amplify" service we will use to host our s3 bucket
+    We are in the "Amplify" page 
+    Click "Deploy an app" 
+    1. Source Code Provider
+        Pick "To manually deploy an app from Amazon S3 or a Zip file, select "Deploy without Git"
+        Tick/Click "Deploy without Git"
+        Click <Next> in bottom right
+    2. Start a manual deployment
+        App name: nie-ise-3-2028-pdc-site 
+        Method: Amazon S3
+        S3 location of objects to host: 
+        Click <Browse> button
+        Select the bucket "nie-ise-3-2028-pdc-fromtrainer"
+        Click <Choose Prefix> button 
+    Click "Save and Deploy" in bottom right 
+    ! Hosting will be in progress 
+    Once done 
+    Click <Visit Deployed URL>
+    Open the browser and copy the site link "https://staging.d1mxrxhy88x5q2.amplifyapp.com/"
+    See the web site is running 
+
+
+Clean up:
+    Go to Buckets List 
+    Select Bucket 
+        [] Empty bucket 
+        [] Delete bucket 
+        
+    [] Delete the app in Amplifier 
+        In Amplify server home page 
+        -> All Apps 
+        -> Go to app "nie-ise-3-2028-pdc-site"
+            -> App Settings 
+                -> General Settings 
+                    -> Delete App 
+                    It will delete the amplify app.
+    
+
+SNS - Notification Service 
+Steps to understand what it is: 
+1. Search in Amazon search box "SNS"
+2. Topic name: ecom-product-subscription
+3. Type: standard (Default)
+4. Create Topic 
+Topic is created 
+5. Create the subscription for notification type 
+    -> Protocol : Email 
+    -> Endpoint: gmaheshviji@gmail.com
+    -> Create Subscription 
+    -> Go to mail 
+        -> Check confirm subscription link 
+        -> click  it 
+        -> Confirm 
+    -> Go to subscription page 
+        check the status: Confirmed
+
+Cleanup of SNS: 
+    [ ] Subscription -> delete 
+    [ ] Topic -> delete 
+
+-------------------------------------------------------
+SNS for bank account subscription:
+Topic -> Create -> Std Topic -> name:bank-ac-subscription 
+->Create Topic -> Create Subscription -> Protocol: Email 
+->Endpoint: gmaheshviji@gmail.com -> Create Subscription 
+-> Subscriber email id will get the email carried about subscription and confirm subscription -> "Confirm subscription" Link from mail -> Another Page -> Click "Confirm subscription" button -> Status of Subscription is changed from Pending to "Confirmed"
+
+Now, cleanup: delete subscription, delete topic 
+-------------------------------------------------------
+
+SQS -> A message queuing service
+    Send <-> Receive message between entities/services 
+    Example: order service -> payment service
+                send       msg  receive 
+
+Lab for SQS:
+Search SQS -> Create Queue -> Standard Queue -> Name: order-payment-msg -> Create Queue -> Send and Receive Message -> Message body: "Order is recorded. Please confirm the payment." -> Send Message -> Message sent Successfully -> In Receive messages section -> Poll for messages -> Messages from the queue are read / displayed 
+
+Cleanup: Delete Queue 
+-------------------------------------------------------
+
+IAM : Manage access to AWS resources
+
+user: identity other than root user to work with AWS resources 
+policy: permission for resources to be assigned to user 
+group: under group, we will have many users 
+    policies can be assigned to group so that all users will have the same permissions 
+role: short lived identity (temp)
+
+Lab: IAM 
+Search IAM -> Side menu bar -> IAM User -> Create User -> 
+name: raghav_fde -> Next -> Permissions -> 
+Attach policies directly -> Search AdministratorAccess -> Tick AdministratorAccess policy -> In bottom righ corner -> Next -> Create User -> User created successfully -> Ther raghav_fde is in Users List page 
+
+Cleanup: Delete User 
+
+-----------------------------------------------------
+So far, 
+1. S3 storage + hosting + Amplify 
+2. SNS 
+3. SQS 
+4. IAM user + policy assignment 
+
+-----------------------------------------------------
+Serverless Backend API Development using 
+1. Lambda       : paas 
+    - serverless compute 
+    - paas 
+    - framework to develop API 
+2. APIGateway
+    - Giving access to APIs to public / with authentication
+-----------------------------------------------------
+Lambda:Run code without thinking about servers
+
+Lab: hello api to be developed using lambda and 
+accessed via APIGateway 
+
+Search Lambda -> Create Function -> Author from scratch
+-> function name: hello -> runtime: python 3.14 
+-> right bottom corner -> Click Create Function Button 
+-> Created Successfully -> Default function code in vsc 
+-> 
+import json
+
+def lambda_handler(event, context):
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
+-> Do change 
+-> json.dumps('Hello from Lambda by Trainer!')
+-> "Deploy" in left side of the code -> Code changed 
+-> `Test` button under `Test` tab 
+-> See the response as 
+{
+  "statusCode": 200,
+  "body": "\"Hello from Lambda by Trainer!\""
+}
+-> Goto top of the hello function page 
+   ie above the vsc 
+-> Attaching the APIGateway to access Lamba function as API 
+from outside Lambda serverless 
+-> Click Trigger 
+-> Add Trigger page is opened -> Trigger Configuration: API Gateway
+-> Create a new API -> HTTP API -> Security: Open 
+-> Click Add Button in right bottom corner 
+-> In the tabs -> Configuration
+-> API endpoint: https://ylhqg7cup8.execute-api.ap-southeast-2.amazonaws.com/default/hello
+-> Open the url in the browser 
+-> See the ouput 
+"Hello from Lambda by Trainer just to learn!"
+
+How API is becoming as the Lambda function call? 
+Client -> API End Point called -> API Gateway 
+-> Calls the Lambda function 
+
+Cleanup: 
+    API Gateway 
+    -> Under configuration 
+    -> Select hello-API 
+    -> Delete 
+    Lambda Functions List page 
+    -> Select "hello" function 
+    -> Actions -> Delete 
+
+------------------------------------------------------
