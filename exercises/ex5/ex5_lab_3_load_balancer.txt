@@ -1,0 +1,139 @@
+Load Balancer: 
+    Web site in apache server with two instances under load balancers.
+
+    LB1 -> site1_instance
+        -> site2_instance 
+
+    How it is working?
+    Assumption 1000 users requests
+    LB will distribute the requests to instances 
+        1 st req -> 1st instance 
+        2 nd req -> 2nd instance 
+        ...
+    LB will distribute the reqs 
+        500 reqs to 1st instance 
+        500 reqs to 2nd instance 
+
+    when will I use the LB? 
+    If I go for server oriented computing 
+    then to handle load we will use LB. 
+
+
+Lab 3: Work with Load Balancer 
+"Web site in apache server with two instances under load balancers."
+
+Resources to be created:
+    1. security_group: site_sg 
+        [HTTP, SSH]
+    2. key_pair: site_key 
+    3. EC2 instances: site1_instance, site2_instance 
+    4. target group: tg1
+    5. load balancer: LB1 
+
+1. security_group: site_sg 
+    [HTTP, SSH]
+    -> EC2 Left Side Bar Menu -> Security Groups -> Create Security Group 
+    -> name: site_sg, description: site_sg
+    -> Inbound Rules 
+        HTTP AnywhereIPv4
+        SSH AnywhereIPv4
+    -> Click <Create Security Group> Button 
+    ! Security group (sg-04b45f47af1730bd7 | site_sg) was created successfully
+
+2. key_pair: site_key
+    -> EC2 Left Side Bar Menu -> Key Pairs -> Create Key Pair 
+    -> name:site_key,  RSA, .pem -> Click <Create Key Pair> 
+    ! Key Pair is created 
+    ! key file is downloaded 
+
+3. EC2 instances: site_servers, num of instances: 2
+    site_sg + site_key 
+    -> EC2 Left Side Bar Menu -> Instances -> Launch Instances 
+    -> Number of Instance: 2
+    -> name: site_servers
+    -> AMI: Amazon Linux, t3.micro
+    -> Key Pair: site_key
+    -> Network : security group : site_sg
+    -> Advanced Details -> User Data 
+    --------------------------------------------
+    #!/bin/bash
+    yum update -y
+    yum install -y httpd
+
+    systemctl start httpd
+    systemctl enable httpd
+
+    echo "<h1>Server is up and running!</h1>" > /var/www/html/index.html
+    echo "<p>Hello from EC2 Instance - $(hostname -f)</p>" >> /var/www/html/index.html
+    echo "<p>Date: $(date)</p>" >> /var/www/html/index.html
+    --------------------------------------------
+    -> Click <Launch Instance> Button 
+    ! Successfully initiated launch of instances (i-0915f2c73ae36623c, i-08379c567cbd19262)
+
+    Open web site for each instance:
+        1. http://instance1_publicIp
+        2. http://instance2_publicIp
+
+4. target group: tg1
+    -> EC2 Left Side Bar Menu -> Target Groups -> Create Target Group 
+    -> Target type: Instances -> Name: tg1
+    -> All others are by default
+         Protocol: HTTP, Port: 80
+         IP address type: IPv4 
+         VPC: default 
+         Protocol version: HTTP1 
+         Health checks: HTTP 
+         Health check path: /
+    -> Click <Next> Button 
+        Register targets - recommended
+        Tick Two EC2 instances named "site_servers" 
+        Port for the selected instances: 80
+        Click <Include as pending below> button 
+        In Review targets, two "site_servers" instances must be there.
+    -> Click <Next> Button
+    -> Review and create page is opended 
+        review the details 
+    -> Click <Create Target> button 
+    ! Target Group is created 
+
+5. load balancer: LB1
+    -> EC2 Left Side Bar Menu -> Load Balancers 
+    -> Create Load Balancer -> Under Application Load Balancer 
+    -> Click <Create> button 
+    -> name: LB1, Scheme: Internet-facing 
+    By default 
+        Load balancer IP address type: IPv4
+    -> Network mapping
+        VPC: default 
+    -> Availability Zones and subnets
+        Select all zones 
+            Tick ap-southeast-2a (apse2-az1)
+            Tick ap-southeast-2b (apse2-az3)
+            Tick ap-southeast-2c (apse2-az2)
+    -> Security groups: site_sg 
+    -> Listeners and routin
+        Listener    HTTP:80
+    -> Routing action 
+        -> Forward to target groups
+        -> Target group: tg1 (Select)
+    -> Verify under "Summary" section 
+    -> Click <Create Load Balancer> button 
+    ! Done 
+    ! Provisioning will be there....
+        Setting up the load balancer...
+    Wait: State from Provisioning -> to -> Active
+
+    Open the DNS of Load Balancer in browser:
+    http://dns_of_load_balancer
+
+    See the output and give refresh many times 
+    you can see the ip addr is changing 
+
+    That why our two servers are under load balancer.
+
+Cleanup 
+    1. Delete LB1
+    2. Delete tg1 
+    3. Delete EC2 Instances -> site_servers 
+    4. Delete security Group: site_sg 
+    5. Delete key pair: site_key 

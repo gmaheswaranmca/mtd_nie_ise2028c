@@ -1,0 +1,71 @@
+CodeCommit = Keep code      <-  Git Source Code Management 
+CodeBuild = Build code      <-  Makes the build 
+CodePipeline = Connect & automate   
+CI / CD - Continuous Integration + Continuous Deployment = DevOps
+CI / CD pipeline AWS.
+
+Source Code         Pipleline           Build the 
+changed         ->  listens       ->    Code 
+
+CodeCommit          CodePipeline        CodeBuild 
+
+code changes will be listened by the pipeline.
+pipeline will trigger the build.
+---------------------------------
+
+Lab : To work with CodeCommit, CodePipeline and CodeBuild 
+Task: code changes will be listened by the pipeline.
+pipeline will trigger the build.
+1. CodeCommit
+    CodeCommit -> Create Repository -> name: sample_pipelining
+    -> Create File -> 
+    Content Type the text in the textarea
+    "I am going to check the pipeline
+    to help me out to build the content changed here."
+    ->  give the details
+        File name           : code.txt
+        Author              : Mahesh
+        Email address       : gmaheshviji@gmail.com
+        Commit message - optional: First File
+    -> Commit 
+2. CodeBuild 
+    CodeBuild -> Create Project -> name: pipelining_build
+    -> Source -> 
+        Source provider: AWS CodeCommit 
+        Repository : sample_pipelining 
+    -> Build commands
+        echo "Built Successful"
+    -> Create Build Project
+    ! You have successfully created the following project: pipelining_build
+    <Start Build>
+        Build Status: Succeeded
+3. CodePipeline 
+    Pipelines -> Create Pipeline -> Build custom pipeline
+    name: code_and_build
+    -> Next -> Source: AWS CodeCommit -> repo: sample_pipelining 
+    -> Branch Name : main 
+    -> Next 
+    -> Build provider : AWS CodeBuild 
+    -> Project Name: pipelining_build
+    -> Next 
+    -> Test Next
+    -> Deploy Next 
+    Check the summary 
+    ==> Create Pipeline 
+    ! Congratulations! The pipeline code_and_build has been created.
+
+    Source -> Build
+
+    Once we have the pipeline from source to build,
+    we will try to do changes in the source.
+    See that build happened automatically in the pipeline. 
+
+Clean up: 
+    Delete CodePipeline "code_and_build"
+    Delete CodeBuild "pipelining_build"
+    Delete CodeCommit "sample_pipelining"
+
+
+    
+
+

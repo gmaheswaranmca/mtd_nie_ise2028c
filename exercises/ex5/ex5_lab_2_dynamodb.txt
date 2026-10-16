@@ -1,0 +1,63 @@
+DynamoDB : Managed NoSQL Database
+Amazon DynamoDB: A fast and flexible NoSQL database service for any scale
+Lab: DynamoDB CRUD operations
+Search DynamoDB -> DynamoDB page is opened 
+-> Left Side Menu Bar -> Tables -> Create Table
+-> Create table page is opened 
+    -> Table name: emps
+    -> Partition key: id (string)
+       ! The partition key is part of the table's primary key. 
+       It is a hash value that is used to retrieve items 
+       from your table and allocate data across hosts 
+       for scalability and availability.
+    -> Click <Create Table> Button 
+    ! The emps table was created successfully.
+
+CRUD operations with `emps` table 
+-> Go into "emps" table 
+-> Explore Items 
+-> Create Item
+-> Set and Add Attributes 
+    id  : emp001
+    name(string) : Rahul Dravid 
+    age (number) : 50
+    Try to switch the Form View to JSON view 
+    to know the syntax of DynamoDB item JSON 
+    -> Click <Create Item> button
+    Created emp is listed in the Explore Items page. 
+Now we are creating one more employee.
+-> Query / Scan 
+    Scan -> All items 
+    Query -> Filter the items 
+
+    Scan -> Run 
+    We can the all items 
+    
+
+    Query 
+    -> Partition Key: emp002 
+    -> Filter: 
+        age Equals to 51
+    -> Run 
+    We can see the Ganguli 
+
+-> Edit 
+   Explore Items Page -> Click the parition key of item to be edited 
+   -> Edit 
+   -> Change the value of the attribute 
+    Example: age: 53
+   -> Save
+   We can see the updated emp in list 
+
+-> Delete 
+    Explore Items Page -> Select the item to be deleted 
+    -> Action -> Delete items 
+
+CRUD operations with DynamoDB we can do now. 
+
+Cleanup: Delete table 
+-> DynamoDB Left Side Menu Bar 
+-> Tables 
+-> Delete
+! The request to delete the "emps" table has been submitted successfully.
+

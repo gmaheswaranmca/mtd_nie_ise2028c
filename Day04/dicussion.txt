@@ -1,0 +1,60 @@
+1. RDS 
+    RDS : Managed Relational Database Service
+        1. RDBMS  : MySQL, Postgres, MariaDB, Oracle, SQL Server, DB2
+        2. Aurora MySQL, Aurora Postgres
+            -> Distributed RDBMS 
+                Aurora MySQL = Distributed Engine + SQL from MySQL 
+
+Lab 1: Setting up MySQL Database in AWS 
+- Search: RDS -> Aurora and RDS -> Left Side Menu Bar
+-> Databases -> Create Database Dropdown
+-> Full Configuration -> The Full Config page opened
+-> Engine options : MySQL 
+-> database creation method : Full Configuration 
+-> Templates : Free Tier 
+-> Availability and durability: Single-AZ DB instance deployment (1 instance) 
+-> Edition: MySQL Community
+-> Engine version: MySQL 8.4.11 !!!!!!!!!!!!!
+-> DB instance identifier: emp-db-instance !!!!!!!!!!!!!
+-> Master username: admin
+-> Credentials management: Self managed
+-> Master password: 
+    Choose your own 
+    Password:                12345678 !!!!!!!!!!!!!
+    Confirm master password: 12345678 !!!!!!!!!!!!!
+-> Database authentication options: Password authentication
+-> Instance type: db.t4g.micro (By Default)
+-> Storage type: 20GB gp2 (By Default)
+-> Compute resource: Don’t connect to an EC2 compute resource (By Default)
+-> Virtual private cloud (VPC) : Default one 
+-> DB subnet group: default 
+-> Public access: Yes !!!!!!!!!!!!!!!!!!!!
+-> VPC security group (firewall): Choose Existing 
+-> Existing VPC security groups: default 
+-> Availability Zone: No Preference 
+Leave all others as they are.
+End of the page 
+-> Click <Create Database> Button 
+! Creating database emp-db-instance
+! Successfully created database emp-db-instance
+-> End Point: emp-db-instance.cxgww66qiwfi.ap-southeast-2.rds.amazonaws.com
+-> username: admin, password: 12345678
+
+Connection String: MySQL (Windows)
+mysql -h emp-db-instance.cxgww66qiwfi.ap-southeast-2.rds.amazonaws.com -P 3306 -u admin -p --ssl-mode=VERIFY_IDENTITY --ssl-ca=".\global-bundle.pem"
+
+Lab 2: Connecting To MySQL 
+Prerequisites: MySQL CLI (MySQL Shell 26.7.1) or MySQL Workbench 
+!Download MySQL Shell 26.7.1/MSI and install 
+
+mysqlsh root@emp-db-instance.cxgww66qiwfi.ap-southeast-2.rds.amazonaws.com:3306
+
+mysqlsh admin@emp-db-instance.cxgww66qiwfi.ap-southeast-2.rds.amazonaws.com:3306
+password:mypassword
+
+mysqlsh -h emp-db-instance.cxgww66qiwfi.ap-southeast-2.rds.amazonaws.com -P 3306 -u admin -p --ssl-mode=VERIFY_IDENTITY --ssl-ca=".\global-bundle.pem"
+
+======================================
+
+CloudWatch
+CloudTrail
