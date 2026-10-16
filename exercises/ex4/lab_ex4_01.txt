@@ -1,0 +1,13 @@
+SNS = AWS's notification/messaging service that helps your cloud application publish a notification and deliver it to interested recipients or other applications.
+
+Lab: Notification during bank account subscription
+
+SNS for bank account subscription:
+Topic -> Create -> Std Topic -> name:bank-ac-subscription 
+->Create Topic -> Create Subscription -> Protocol: Email 
+->Endpoint: gmaheshviji@gmail.com -> Create Subscription 
+-> Subscriber email id will get the email carried about subscription and confirm subscription -> "Confirm subscription" Link from mail -> Another Page -> Click "Confirm subscription" button -> Status of Subscription is changed from Pending to "Confirmed"
+
+---
+
+cleanup: delete subscription, delete topic

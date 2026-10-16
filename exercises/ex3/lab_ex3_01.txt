@@ -1,0 +1,116 @@
+Amazon S3 = Serverless object storage + static website hosting.
+
+Lab: Deploy `Portfolio Site` in S3 bucket
+
+1. Portfolio Site (Resume)
+- Deploy in S3 bucket
+    -> Learn S3 service 
+        -> bucket creation, file management, 
+           versioning, cleanup of bucket 
+        -> static web site hosting 
+            -> Amplify service to deploy the site 
+
+Create S3 bucket
+Search S3 -> S3 -> Create Bucket 
+    -> Dont change AWS Region
+    -> Bucket type: General purpose (Dont change)
+    -> Bucket namespace: Global namespace (Dont change)
+    -> Name: nie-ise-3-2028-pdc-fromtrainer 
+        It must be unique globally 
+    -> Object Ownership: ACLs disabled (recommended) (Dont change)
+    -> Block Public Access settings for this bucket
+        -> Block all public access 
+            -> Untick 
+            -> Tick : I acknowledge that the current settings might result in this bucket and the objects within becoming public
+    -> Versioning : Enable 
+    Give <Create Bucket> Command 
+
+    ! Successfully created bucket "nie-ise-3-2028-pdc-fromtrainer"
+
+    `Upload` the files
+        - Drag the web site files or folder to "drag and drop" area or use "Add Files" option or "Add Folder" option 
+        - Give <Upload> command 
+        - !Successfully uploaded 
+        - Give <Close> Command 
+
+    We can see the files uploaded in the bucket.
+
+    Select the file to be opened to view the content of the file.
+        - Give <Open> command to see the file content 
+        - After view, close the tab
+    
+- Maitain many versions of the file 
+    Mandatory: verisoning should be enabled for bucket 
+    Experiment: Do chnages in index.html <-- the file uploaded bef 
+    then come to bucket "Upload" option 
+        - Drag and Drop the new "index.html" file 
+        - Give Upload command 
+        new file is uploaded Successfully
+- Go to the bucket items list 
+    - Click the link ie name of the file "index.html" 
+        - Going inside the file and its management 
+            - go to versioning tab 
+                - We can see all the versions of our file 
+                    - select the top file and give open cmd 
+                        we can see the latest content 
+                    - click the old version file 
+                        - use open command 
+                            - we can the ole content 
+- Add photo to our home page 
+    - upload home page file and photo file to bucket 
+    - check files uploaded by opening the file 
+        - when we open the home page
+            the image is not displayed here 
+            there no absolute path for our image
+            we have only relative path for our image 
+        - this will be solved / fixed after hosted our content as web site 
+- Web site hosting 
+    - Be in the bucket home page 
+    - Go to properties tab 
+        -> Static website hosting section 
+            -> Give <Edit> cmd 
+                "Edit static website hosting" page we will get 
+                    -> Enable the "Static website hosting"
+                    -> Hosting type: Host a static website (By default)
+                    -> Index document: index.html 
+                    -> Give "Save Changes" cmd 
+                    ! Successfully edited static website hosting.
+-> Go again to "Static website hosting" section under "Properties" tab 
+    Give "View your existing Amplify apps" option 
+    "Amplify" service we will use to host our s3 bucket
+    We are in the "Amplify" page 
+    Click "Deploy an app" 
+    1. Source Code Provider
+        Pick "To manually deploy an app from Amazon S3 or a Zip file, select "Deploy without Git"
+        Tick/Click "Deploy without Git"
+        Click <Next> in bottom right
+    2. Start a manual deployment
+        App name: nie-ise-3-2028-pdc-site 
+        Method: Amazon S3
+        S3 location of objects to host: 
+        Click <Browse> button
+        Select the bucket "nie-ise-3-2028-pdc-fromtrainer"
+        Click <Choose Prefix> button 
+    Click "Save and Deploy" in bottom right 
+    ! Hosting will be in progress 
+    Once done 
+    Click <Visit Deployed URL>
+    Open the browser and copy the site link "https://staging.d1mxrxhy88x5q2.amplifyapp.com/"
+    See the web site is running 
+
+
+Clean up:
+    Go to Buckets List 
+    Select Bucket 
+        [] Empty bucket 
+        [] Delete bucket 
+        
+    [] Delete the app in Amplifier 
+        In Amplify server home page 
+        -> All Apps 
+        -> Go to app "nie-ise-3-2028-pdc-site"
+            -> App Settings 
+                -> General Settings 
+                    -> Delete App 
+                    It will delete the amplify app.
+    

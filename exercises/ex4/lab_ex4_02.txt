@@ -1,0 +1,17 @@
+SQS -> A message queuing service
+    Send <-> Receive message between entities/services of microservices 
+    Example: order service -> payment service
+                send       msg  receive 
+
+Lab for SQS:
+Search SQS -> Create Queue -> Standard Queue 
+-> Name: order-payment-msg -> Create Queue 
+-> Send and Receive Message 
+-> Message body: "ORDER_RECORDED" 
+-> Send Message 
+-> Message sent Successfully -> In Receive messages section 
+-> Poll for messages 
+-> Receives the message 
+   "ORDER_RECORDED" the number of times they are sent
+
+Cleanup: Delete Queue 

@@ -1,0 +1,53 @@
+Lambda:Run code without thinking about servers
+
+Lab: hello api to be developed using lambda and 
+accessed via APIGateway 
+
+Search Lambda -> Create Function -> Author from scratch
+-> function name: hello -> runtime: python 3.14 
+-> right bottom corner -> Click Create Function Button 
+-> Created Successfully -> Default function code in vsc 
+-> 
+import json
+
+def lambda_handler(event, context):
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
+-> Do change 
+-> json.dumps('Hello from Lambda by Trainer!')
+-> "Deploy" in left side of the code -> Code changed 
+-> `Test` button under `Test` tab 
+-> See the response as 
+{
+  "statusCode": 200,
+  "body": "\"Hello from Lambda by Trainer!\""
+}
+-> Goto top of the hello function page 
+   ie above the vsc 
+-> Attaching the APIGateway to access Lamba function as API 
+from outside Lambda serverless 
+-> Click Trigger 
+-> Add Trigger page is opened -> Trigger Configuration: API Gateway
+-> Create a new API -> HTTP API -> Security: Open 
+-> Click Add Button in right bottom corner 
+-> In the tabs -> Configuration
+-> API endpoint: https://ylhqg7cup8.execute-api.ap-southeast-2.amazonaws.com/default/hello
+-> Open the url in the browser 
+-> See the ouput 
+"Hello from Lambda by Trainer just to learn!"
+
+How API is becoming as the Lambda function call? 
+Client -> API End Point called -> API Gateway 
+-> Calls the Lambda function 
+
+Cleanup: 
+    API Gateway 
+    -> Under configuration 
+    -> Select hello-API 
+    -> Delete 
+    Lambda Functions List page 
+    -> Select "hello" function 
+    -> Actions -> Delete

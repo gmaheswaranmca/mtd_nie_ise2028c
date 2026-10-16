@@ -1,0 +1,18 @@
+IAM : Manage access to AWS resources
+
+user: identity other than root user to work with AWS resources 
+policy: permission for resources to be assigned to user 
+group: under group, we will have many users 
+    policies can be assigned to group 
+    so that all users will have the same permissions 
+role: short lived identity (temp)
+
+Lab: IAM 
+Search IAM -> Side menu bar -> IAM User -> Create User -> 
+name: "raghav_fde" -> Next -> Permissions -> 
+Attach policies directly -> Search AdministratorAccess 
+-> Tick AdministratorAccess policy -> In bottom righ corner 
+-> Next -> Create User -> User created successfully 
+-> Ther "raghav_fde" is in Users List page 
+
+Cleanup: Delete User 
